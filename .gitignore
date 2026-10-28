@@ -1,0 +1,11 @@
+# 個人の設定・ビルド成果物・開発環境のパスは入れない
+settings.json
+__pycache__/
+build/
+dist/
+*.spec
+*.apk
+android/local.properties
+android/.gradle/
+android/build/
+android/app/build/

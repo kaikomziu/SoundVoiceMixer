@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 音の波形アイコン -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M35,46h6v16h-6z M45,38h6v32h-6z M55,30h6v48h-6z M65,40h6v28h-6z M75,48h6v12h-6z M25,50h6v8h-6z" />
+</vector>

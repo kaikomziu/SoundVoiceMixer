@@ -1,0 +1,5 @@
+numpy
+PyAudioWPatch
+# 以下は任意（無いと、サウンドボードの一部の形式の読み込み・ボイチェンのフィルターが使えない）
+soundfile
+scipy
