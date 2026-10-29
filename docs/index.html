@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SoundVoice Mixer — デスクトップの音とマイクを、ひとつの仮想マイクに</title>
+  <meta name="description" content="デスクトップの音とマイクをミックスして仮想マイクへ出力する、Windows 用の無料音声ミキサー。ボイチェン14種・音割れ・サウンドボード・ノイズゲート・エコー・グローバルホットキー。Android 版もあります。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SoundVoice Mixer — デスクトップの音とマイクを、ひとつの仮想マイクに">
+  <meta property="og:description" content="ボイチェン14種・音割れ・サウンドボード・ホットキー。exe 1つで起動（Windows）。Android 版あり。">
+  <meta property="og:url" content="https://kaikomziu.github.io/SoundVoiceMixer/">
+  <meta property="og:image" content="https://kaikomziu.github.io/SoundVoiceMixer/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="logo.png">
+  <style>
+    :root { --bg:#140e28; --bg2:#1c1438; --card:#241a48; --line:rgba(255,255,255,.1); --fg:#f1eeff; --dim:#b9b0dc; --accent:#a98bff; --accent2:#5b3cc4; --hot:#ff7a9c; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:var(--bg); color:var(--fg); line-height:1.8;
+      font-family:"Segoe UI","Yu Gothic UI","Hiragino Sans",system-ui,sans-serif; }
+    a { color:var(--accent); }
+    img { max-width:100%; }
+    .wrap { max-width:1080px; margin:0 auto; padding:0 24px; }
+    header { background:radial-gradient(900px 460px at 85% -10%, rgba(169,139,255,.35), transparent 70%),
+             linear-gradient(160deg,#120b26,#2a1860); padding:72px 0 64px; }
+    .hero { display:grid; grid-template-columns:1fr 1.05fr; gap:48px; align-items:center; }
+    .brand { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+    .brand img { width:56px; height:56px; border-radius:14px; }
+    .brand b { font-size:30px; letter-spacing:.5px; }
+    h1 { font-size:clamp(28px,4vw,42px); line-height:1.35; margin:0 0 16px; font-weight:700; }
+    .lead { color:var(--dim); font-size:17px; margin:0 0 28px; }
+    .btns { display:flex; flex-wrap:wrap; gap:12px; }
+    .btn { display:inline-flex; flex-direction:column; padding:12px 22px; border-radius:12px; font-weight:700; text-decoration:none; font-size:16px; line-height:1.4; }
+    .btn small { font-weight:400; font-size:12px; opacity:.8; }
+    .btn.primary { background:var(--accent); color:#1b1040; }
+    .btn.primary:hover { filter:brightness(1.08); }
+    .btn.ghost { border:1px solid rgba(255,255,255,.3); color:var(--fg); }
+    .btn.ghost:hover { background:rgba(255,255,255,.08); }
+    .note { color:var(--dim); font-size:13px; margin-top:14px; }
+    .shot { border-radius:12px; box-shadow:0 24px 60px rgba(0,0,0,.5); width:100%; display:block; background:#f0f0f0; }
+    section { padding:64px 0 8px; }
+    h2 { font-size:28px; margin:0 0 8px; }
+    .sub { color:var(--dim); margin:0 0 28px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; }
+    .card h3 { margin:0 0 6px; font-size:17px; }
+    .card p { margin:0; color:var(--dim); font-size:14px; }
+    .card .ic { font-size:26px; line-height:1; margin-bottom:10px; display:block; }
+    .tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+    .tabs button { background:var(--bg2); color:var(--fg); border:1px solid var(--line); border-radius:999px; padding:7px 16px; font:inherit; font-size:14px; cursor:pointer; }
+    .tabs button[aria-selected="true"] { background:var(--accent); color:#1b1040; border-color:transparent; font-weight:700; }
+    .gallery { max-width:860px; }
+    ol.steps { counter-reset:s; list-style:none; padding:0; margin:0; display:grid; gap:14px; }
+    ol.steps li { counter-increment:s; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px 18px 68px; position:relative; }
+    ol.steps li::before { content:counter(s); position:absolute; left:20px; top:18px; width:32px; height:32px; border-radius:50%;
+      background:var(--accent2); color:#fff; font-weight:700; display:grid; place-items:center; }
+    ol.steps b { display:block; margin-bottom:2px; }
+    ol.steps span { color:var(--dim); font-size:14px; }
+    code { background:rgba(255,255,255,.1); padding:1px 6px; border-radius:6px; font-size:.92em; }
+    .android { display:grid; grid-template-columns:1fr 1fr 1.3fr; gap:24px; align-items:start; }
+    .android .shot { background:none; }
+    .yesno { display:grid; gap:12px; }
+    .yes, .no { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 20px; font-size:14px; }
+    .yes ul, .no ul { margin:6px 0 0; padding-left:20px; color:var(--dim); }
+    .yes b { color:#8ee6a8; } .no b { color:var(--hot); }
+    details { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 20px; margin-bottom:10px; }
+    summary { cursor:pointer; font-weight:700; }
+    details p { color:var(--dim); margin:10px 0 2px; font-size:15px; }
+    .cta { text-align:center; background:linear-gradient(160deg,#2a1860,#1c1438); border:1px solid var(--line); border-radius:20px; padding:44px 24px; margin-top:24px; }
+    .cta .btns { justify-content:center; }
+    footer { color:var(--dim); font-size:14px; text-align:center; padding:56px 0 40px; }
+    footer a { color:var(--dim); }
+    @media (max-width: 820px) {
+      header { padding:48px 0 40px; }
+      .hero, .android { grid-template-columns:1fr; gap:28px; }
+      .android .shot { max-width:320px; margin:0 auto; }
+      section { padding:48px 0 4px; }
+      .wrap { padding:0 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap hero">
+      <div>
+        <div class="brand"><img src="logo.png" alt=""><b>SoundVoice Mixer</b></div>
+        <h1>デスクトップの音とマイクを、<br>ひとつの仮想マイクに。</h1>
+        <p class="lead">ゲームや動画の音と自分の声を混ぜて、Discord や配信ソフトへ「1本のマイク」として送れる Windows 用の音声ミキサー。ボイチェン・音割れ・サウンドボードも入っています。</p>
+        <div class="btns">
+          <a class="btn primary" href="https://github.com/kaikomziu/SoundVoiceMixer/releases/latest/download/SoundVoiceMixer.exe">Windows 版をダウンロード<small>SoundVoiceMixer.exe（約54MB）</small></a>
+          <a class="btn ghost" href="https://github.com/kaikomziu/SoundVoiceMixer/releases/latest/download/SoundVoice.apk">Android 版<small>SoundVoice.apk</small></a>
+        </div>
+        <p class="note">Windows 10 / 11 ・ 無料 ・ インストール不要（exe をダブルクリックするだけ）<br>仮想マイクとして使うには、無料の <a href="https://vb-audio.com/Cable/">VB-CABLE</a> が必要です（<a href="#setup">手順</a>）。</p>
+      </div>
+      <img class="shot" src="screenshots/mixer.png" alt="SoundVoice Mixer のミキサー画面">
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="features">
+      <h2>できること</h2>
+      <p class="sub">全部ひとつのウィンドウで。設定は自動で保存されます。</p>
+      <div class="grid">
+        <div class="card"><span class="ic">🎚️</span><h3>デスクトップ音 ＋ マイク</h3><p>再生中の音（ループバック）と好きなマイクを混ぜて、仮想ケーブルへ出力。それぞれ 0〜300% で音量調整・ミュートできます。</p></div>
+        <div class="card"><span class="ic">🎭</span><h3>ボイチェン 14 種</h3><p>女声風・男声風・子ども・ヘリウム・魔王・ロボット・宇宙人・おばけ・電話・ラジオ・メガホン・洞窟など。ピッチ・震え・ロボット・リバーブ・フィルターも細かく調整。</p></div>
+        <div class="card"><span class="ic">💥</span><h3>音割れ</h3><p>ハードクリップ（ガチ音割れ）・ソフト・ビットクラッシュの3種類。全体／マイクだけ／デスクトップだけにかけられ、強さも自由。</p></div>
+        <div class="card"><span class="ic">🔊</span><h3>サウンドボード</h3><p>8 枠に効果音を割り当ててワンタッチ再生。WAV / MP3 / OGG / FLAC に対応し、自分のイヤホンにも流せます。</p></div>
+        <div class="card"><span class="ic">⌨️</span><h3>グローバルホットキー</h3><p>ゲーム中でも効くショートカット。押している間だけ音割れ、ボイチェン切り替え、ミュート、効果音など。F13〜F24 やマウスのサイドボタンも使えます。</p></div>
+        <div class="card"><span class="ic">🎧</span><h3>モニター（自分で聞く）</h3><p>加工した自分の声やサウンドボードを、ヘッドホンで確認。何を聞くかはサウンドボード・マイク・デスクトップ音から選べます。</p></div>
+        <div class="card"><span class="ic">🔇</span><h3>ノイズゲート・エコー</h3><p>キーボードの音や環境音をカットするノイズゲートと、ディレイ・繰り返しを調整できるエコー。</p></div>
+        <div class="card"><span class="ic">📱</span><h3>Android 版もあり</h3><p>マイクとスマホ内の音を混ぜて、ボイチェンや音割れをかけて聞いたり録音したりできます。</p></div>
+      </div>
+    </section>
+
+    <section id="screens">
+      <h2>画面</h2>
+      <p class="sub">タブを切り替えて見てみてください。</p>
+      <div class="gallery">
+        <div class="tabs" role="tablist">
+          <button role="tab" aria-selected="true" data-src="screenshots/mixer.png">ミキサー</button>
+          <button role="tab" aria-selected="false" data-src="screenshots/voice.png">ボイチェン</button>
+          <button role="tab" aria-selected="false" data-src="screenshots/effects.png">エフェクト</button>
+          <button role="tab" aria-selected="false" data-src="screenshots/soundboard.png">サウンドボード</button>
+          <button role="tab" aria-selected="false" data-src="screenshots/hotkeys.png">ホットキー</button>
+        </div>
+        <img id="gallery-img" class="shot" src="screenshots/mixer.png" alt="SoundVoice Mixer の画面">
+      </div>
+    </section>
+
+    <section id="setup">
+      <h2>使い方（Windows）</h2>
+      <p class="sub">最初の1回だけ、仮想ケーブルの準備がいります。</p>
+      <ol class="steps">
+        <li><b>VB-CABLE を入れる</b><span><a href="https://vb-audio.com/Cable/">vb-audio.com/Cable</a> からダウンロードし、<code>VBCABLE_Setup_x64.exe</code> を「管理者として実行」。終わったら PC を再起動します。</span></li>
+        <li><b>名前を「soundvoice Output」に変える</b><span>サウンドの設定 → その他のサウンド設定 →「録音」タブで <code>CABLE Output</code> を右クリック → プロパティ → 名前を <code>soundvoice Output</code> に変更。（変えなくても使えます）</span></li>
+        <li><b>SoundVoice Mixer を起動して「▶ 開始」</b><span>出力先には自動で <code>CABLE Input</code> が選ばれます。デスクトップ音とマイクを選んで開始するだけ。</span></li>
+        <li><b>Discord などでマイクを選ぶ</b><span>入力デバイスに <code>soundvoice Output</code>（または <code>CABLE Output</code>）を選べば完成です。</span></li>
+      </ol>
+    </section>
+
+    <section id="android">
+      <h2>Android 版</h2>
+      <p class="sub">Android 10 以上。スマホだけで、声の加工や録音を楽しめます。</p>
+      <div class="android">
+        <img class="shot" src="screenshots/android-main.png" alt="Android 版のメイン画面">
+        <img class="shot" src="screenshots/android-voice.png" alt="Android 版のボイチェン画面">
+        <div class="yesno">
+          <div class="yes"><b>できること</b>
+            <ul>
+              <li>マイク ＋ スマホ内の音（ほかのアプリの音）のミックス</li>
+              <li>ボイチェン 14 種・音割れ・ノイズゲート・エコー</li>
+              <li>サウンドボード 8 枠（MP3 / WAV / OGG / M4A）</li>
+              <li>全部の音を WAV で録音（ミュージック/SoundVoice に保存）</li>
+              <li>画面を閉じても動き続ける（通知から停止）</li>
+            </ul>
+          </div>
+          <div class="no"><b>できないこと</b>
+            <ul>
+              <li>Discord などほかのアプリのマイクに流すこと（Android の仕様で、root 化なしでは不可能）</li>
+              <li>音の取り込みを禁止しているアプリ（一部のゲームなど）の音を拾うこと</li>
+            </ul>
+          </div>
+          <p class="note" style="margin:0">「開始」を押すと「画面の録画/キャスト」の確認が出ます。スマホ内の音を拾うための許可で、画面は録画しません。スピーカーだとハウリングするので、イヤホン推奨です。</p>
+          <div class="btns"><a class="btn primary" href="https://github.com/kaikomziu/SoundVoiceMixer/releases/latest/download/SoundVoice.apk">SoundVoice.apk をダウンロード<small>Android 10 以上</small></a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>よくある質問</h2>
+      <details><summary>起動すると「Windows によって PC が保護されました」と出る</summary>
+        <p>署名していない個人制作のアプリなので、初回に SmartScreen の警告が出ることがあります。「詳細情報」→「実行」で起動できます。</p></details>
+      <details><summary>音がループする・ハウリングする</summary>
+        <p>「デスクトップ音」と「出力先」に同じデバイスを選ぶとループします（アプリが警告を出します）。モニターをスピーカーで鳴らすときは「モニターで聞く音」のデスクトップ音をオフにしてください。</p></details>
+      <details><summary>設定はどこに保存される？</summary>
+        <p>exe と同じフォルダの <code>settings.json</code> です。exe を別の場所に移すときは、一緒に移すと設定を引き継げます。</p></details>
+      <details><summary>起動に少し時間がかかる</summary>
+        <p>1つの exe にまとめているため、起動のたびに中身を展開しています。数秒で開きます。</p></details>
+      <details><summary>VB-CABLE 以外の仮想ケーブルでも使える？</summary>
+        <p>使えます。出力先に好きな再生デバイス（Voicemeeter の入力など）を選べます。</p></details>
+      <details><summary>Python で動かしたい／中身を見たい</summary>
+        <p>ソースコードは <a href="https://github.com/kaikomziu/SoundVoiceMixer">GitHub</a> にあります。<code>pip install -r requirements.txt</code> のあと <code>python soundvoice_mixer.py</code> で起動できます。</p></details>
+    </section>
+
+    <div class="cta">
+      <h2>さっそく使ってみる</h2>
+      <p class="sub">無料・インストール不要。</p>
+      <div class="btns">
+        <a class="btn primary" href="https://github.com/kaikomziu/SoundVoiceMixer/releases/latest/download/SoundVoiceMixer.exe">Windows 版をダウンロード<small>SoundVoiceMixer.exe</small></a>
+        <a class="btn ghost" href="https://github.com/kaikomziu/SoundVoiceMixer/releases/latest/download/SoundVoice.apk">Android 版<small>SoundVoice.apk</small></a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <a href="https://github.com/kaikomziu/SoundVoiceMixer">GitHub</a> ・
+    <a href="https://github.com/kaikomziu/SoundVoiceMixer/issues">不具合の報告</a> ・
+    <a href="https://github.com/kaikomziu/SoundVoiceMixer/releases">更新履歴</a> ・
+    <a href="https://kaikomziu.github.io/game-links/">ほかの作品</a>
+  </footer>
+
+  <script>
+    // 画面ギャラリーのタブ切り替え
+    const tabs = document.querySelectorAll('.tabs button');
+    const img = document.getElementById('gallery-img');
+    tabs.forEach(t => t.addEventListener('click', () => {
+      tabs.forEach(o => o.setAttribute('aria-selected', o === t));
+      img.src = t.dataset.src;
+      img.alt = 'SoundVoice Mixer の' + t.textContent + '画面';
+    }));
+  </script>
+</body>
+</html>
