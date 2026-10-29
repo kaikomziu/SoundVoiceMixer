@@ -1,5 +1,6 @@
 # SoundVoice Mixer
-n公式サイト: https://kaikomziu.github.io/SoundVoiceMixer/
+
+**公式サイト: https://kaikomziu.github.io/SoundVoiceMixer/**
 
 Windows 用の**音声ミキサー**です。デスクトップの音（再生中の音）と**マイク**をミックスして、仮想オーディオケーブルへ出力します。
 ボイチェン・音割れ・ノイズゲート・エコー・サウンドボード・ホットキーなどが使えます。スマホ（Android）版もあります。
